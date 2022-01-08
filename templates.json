@@ -1,0 +1,25 @@
+{
+    "test_template": {
+        "template":"бла ${checktest} бла ${fio} бла бла бла ${combotest} ",
+        "actions":[
+            {
+                "key":"inputtest",
+                "label":"Ввод",
+                "type": "input"
+            },
+            {
+                "key":"combotest",
+                "label":"Комбо",
+                "type": "combobox",
+                "values": ["123", "1434"]
+            },
+            {
+                "key":"checktest",
+                "label":"да/нет",
+                "type": "checkbox"
+            }
+        ]
+    }
+}
+
+
