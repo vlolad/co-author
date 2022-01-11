@@ -1,48 +1,57 @@
 //todo: грузить из файла
 const templates = {
     "test_template": {
-        "template":"lalal ${checktest} lalal ${fio} lala ${combotest} ",
+        "template":"lalal ${checktest} lalal ${inputtest} lala ${combotest}",
         "actions":[
             {
                 "key":"inputtest",
                 "label":"imput",
-                "type": "input"
+                "type": "input",
+                "values": []
             },
             {
                 "key":"combotest",
                 "label":"combobox",
                 "type": "combobox",
                 "values": ["123", "1434"]
-            },
-            {
-                "key":"checktest",
-                "label":"checkbox",
-                "type": "checkbox"
             }
         ]
     }
 }
 
-const actionsTemplates = { //todo доделать поля ввода
-    "input" :       "<p>${label}</p><input id=${key}>",
-    "combobox" :    "<p>${label}</p><input id=${key}>", //прокидывать значения из values
-    "checkbox" :    "<p>${label}</p><input type=\"checkbox\" id=\"${key}\" value=\"newsletter\">"
+const actionEventsByType = {
+    "input": "keyup",
+    "checkbox": "click",
+    "combobox": "click",
 }
 
+const actionsTemplates = { //todo доделать поля ввода
+    "input" :       "<p>${label}</p><input id=\"${key}\">",
+    "combobox" :    "<p>${label}</p><select id=\"${key}\"><option value=\"1\">test1</option>" + 
+                                        "<option value=\"2\" selected=\"selected\">test2</option>" + 
+                                        "<option value=\"3\">test3</option>" + 
+                                    "</select>",
+    "checkbox" :    "<p>${label}</p><input type=\"checkbox\" id=\"${key}\">"
+}
+
+let templateValue = ""
+let currentValues = {}
+
 document.addEventListener('DOMContentLoaded', function(){ //проверка на загрузку страницы
-    console.log(templates.test_template.template)
-    var templateFiled = document.getElementById("document_template")
-    templateFiled.innerHTML = String(templates.test_template.template)
+    templateValue = templates.test_template.template
+    console.log(templateValue)
     addActions(templates.test_template)
+    renderTemplate()
 })
 
 
 function addActions(template) {
-    for(let action of template.actions){
+    for(const action of template.actions){
         const actionObject = getActionObject(action)
         if(actionObject){
-            document.getElementById("actions").append(actionObject)
+            document.getElementById("actions_holder").append(actionObject)
             setActionEventListner(action)
+            currentValues[action.key] = ""
         }
     }
 }
@@ -63,28 +72,35 @@ function getActionObject(action){
 }
 
 function setActionEventListner(action){
-    actionObject = document.getElementById(action.key)
+    const actionObject = document.getElementById(action.key)
     if(actionObject){
-        if(action.type === "input"){
-            actionObject.addEventListener('keypress', function() {
-                //todo обработка нажатия и подстановка в текст с помощью replaceKeyInTemplate
-            }, false)
-        } else if(action.type === "checkbox"){
-            actionObject.addEventListener('click', function() {
-                //todo обработка нажатия и подстановка в текст с помощью replaceKeyInTemplate
-            }, false)
-        } else if(action.type === "combobox"){
-            actionObject.addEventListener('click', function() {
-                //todo обработка нажатия и подстановка в текст с помощью replaceKeyInTemplate
-                //каким то образом надо обрать значение из values
-            }, false)
-        }
+        const event = actionEventsByType[action.type]
+        actionObject.addEventListener(event, function() {
+            const actionObject = document.getElementById(action.key)
+            if(actionObject){
+                if(currentValues[action.key] != undefined){
+                    currentValues[action.key] = actionObject.type === "checkbox" ? actionObject.checked : actionObject.value
+                    renderTemplate(action.key)
+                } else {
+                    console.log("Can't find value in currentValue by key " + action.key)
+                }
+            }
+        }, false)
+        
     } else {
         console.error("Can't find element with id " + action.key)
     }
 }
 
-function replaceKeyInTemplate(key, value){
-    //todo брать из document текущее шаблона
-    //и заменять в нем ключи key (добавить к нему ${}) на значение value
+function renderTemplate() {
+    const templateHolder = document.getElementById("template_holder") // надо бы вынести по нормальному
+    if(templateHolder){
+        let newValue = templateValue
+        for(const key of Object.keys(currentValues)){
+            newValue = newValue.replaceAll("${" + key + "}", currentValues[key])
+        }
+        templateHolder.innerHTML = newValue
+    } else {
+        console.error("Template holder not found")
+    }
 }

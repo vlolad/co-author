@@ -4,7 +4,7 @@
   <style type="text/css">    
     * { margin: 0; padding: 0; }
     p { padding: 5px; }
-    .actions_holder { 
+    .left_holder { 
         position: absolute;
         left: 0;
         top: 1;
@@ -13,7 +13,7 @@
         border: 2px solid #438f05;
         border-radius: 4px;
     }
-    .template_holder { 
+    .right_holder { 
         position: absolute;
         right: 0;
         top: 1;
@@ -34,15 +34,13 @@
 <body>
 </head>
 <body>
-    <div class="template_holder">
-        <p id="document_template"></p>
+    <div class="right_holder">
+        <p id="template_holder"></p>
     </div>
-    <div class="actions_holder">
+    <div class="left_holder">
         <p id="actions_labels">Actions</p>
-        <div id="actions">
-
-        </div>
+        <div id="actions_holder"></div>
     </div>
 </body>
-<script type="text/javascript" src="logic.js"></script>
+<script type="text/javascript" src="logic.js" charset="utf-8"></script>
 </html>
