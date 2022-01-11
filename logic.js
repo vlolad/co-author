@@ -81,27 +81,13 @@ const htmlObjectCreators = {
         }
         return select
     },
-    "checkbox" : function(key, values) {
-        //нужн реализация создания объекта
-    },
-    "combobox_old" :    function(key, values) {
-        const select = document.createElement("select")
-        select.id = key
-
-        for(const v of values){
-            const option = document.createElement("option")
-            option.value = v
-            option.innerHTML = v
-            select.appendChild(option)
-        }
-        return select
-    },
+    "checkbox" : function(key, values) {}    //нужн реализация создания объекта
 }
 
 let templateValue = ""
 let currentValues = {}
 
-document.addEventListener('DOMContentLoaded', function(){ //проверка на загрузку страницы
+document.addEventListener('DOMContentLoaded', function(){
     loadDoctypesPicker()
 })
 
@@ -114,10 +100,9 @@ function loadDoctypesPicker(){
         select.appendChild(option)
     }
     select.addEventListener('click', function() {
+        closeTemplate()
         if(select.value){
             loadTemplate(select.value)
-        } else{
-            closeTemplate()
         }
     }) 
 }
@@ -141,7 +126,7 @@ function loadTemplate(templateName){
     console.log("Opening template " + templateName)
 
     templateValue = templates[templateName].template
-    addActions(templates.test_template)
+    addActions(templates[templateName])
     renderTemplate()
 
     console.log("Template loaded")
