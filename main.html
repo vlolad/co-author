@@ -1,58 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <style type="text/css">
-    :root {
-      --holder-border: 5px solid #01585c;
-    }
-    p { padding: 0px; }
-    .left_holder { 
-      position: absolute;
-      left: 0;
-      top: 1;
-      width: 48%;
-      height: 100%;
-      border: var(--holder-border);
-      border-radius: 4px;
-    }
-    .right_holder { 
-      position: absolute;
-      right: 0;
-      top: 1;
-      width: 50%;
-      height: 100%;
-      border: var(--holder-border);
-      border-radius: 4px;
-      text-align: justify;
-    }
-    body {
-      background-color: #d1fdffff;
-    }
-    h1 { 
-      font-size: 120%; 
-      font-family: Verdana, Arial, Helvetica, sans-serif; 
-      color: #01585c;
-      text-align: center  
-    } 
-  </style>
-<h1>Co-Author </h1> 
-</head>
-  <br>
-<body>
+  <title>Co-author project</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <div id = "doctype_picker_holder" class = "doctype_picker" >
-      <select id = "doctype_picker">
+  <center>
+    <div id = "doctype_picker_holder" class = "padding_base" >
+      <select id = "doctype_picker" class = "smoove">
         <option value=""></option>
       </select>
     </div>
+  </center>
+  <button id = "convert">Convert to pdf</button>
+  <div class = "padding_base">
     <div class="right_holder" hidden = true>
-        <p id="template_holder"></p>
+        <center>
+          <p>Документ</p>
+        </center>
+        <p id="template_holder" class = "padding_base"></p>
     </div>
     <div class="left_holder" hidden = true>
-        <p id="actions_labels">Actions</p>
+        <center>
+          <p id="actions_labels">Действия</p>
+        </center>
         <div id="actions_holder"></div>
     </div>
+  </div>
 </body>
-<script type="text/javascript" src="logic.js" charset="utf-8"></script>
+<script type="module" src="logic.js" charset="utf-8"></script>
+<script type="module", src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
+<script type="module" src="./templates.js" charset="utf-8"></script>
 </html>
