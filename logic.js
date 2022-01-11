@@ -29,6 +29,24 @@ const templates = {
                 ]
             }
         ]
+    },
+    "dogovor_PO": {
+        "label": "Договор на совместную разработку ПО",
+        "template": "<h1>Соглашение соавторов на совместную разработку программы для ЭВМ</h1><br><br> <div style=\"float: right\"><b>«${date_n}» ${month} год г.</b></div> <b>г. Москва</b><br><br><br> а",
+        "actions":[
+            {
+                "key":"date_n", //должен быть уникальным
+                "label":"Текущее число", //Название поля
+                "type": "input", //Тип поля (input, combobox)
+                "values": []
+            },
+            {
+                "key":"month",
+                "label":"Текущая дата",
+                "type": "combobox_old",
+                "values": ["январь", "февраль", "март", "апрель"]
+            }
+        ]
     }
 }
 //=========================================================================================
@@ -49,6 +67,7 @@ const htmlObjectCreators = {
         const input = document.createElement("input")
         input.id = key
         return input
+        console.log ()
     },
     "combobox" : function(key, values) {
         const select = document.createElement("select")
@@ -64,7 +83,19 @@ const htmlObjectCreators = {
     },
     "checkbox" : function(key, values) {
         //нужн реализация создания объекта
-    }
+    },
+    "combobox_old" :    function(key, values) {
+        const select = document.createElement("select")
+        select.id = key
+
+        for(const v of values){
+            const option = document.createElement("option")
+            option.value = v
+            option.innerHTML = v
+            select.appendChild(option)
+        }
+        return select
+    },
 }
 
 let templateValue = ""
