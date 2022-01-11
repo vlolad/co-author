@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function(){
     loadDoctypesPicker()
     convertButton = document.getElementById("convert")
     if(convertButton){
-        convertButton.addEventListener(function() {
+        convertButton.addEventListener('click', function() {
             console.log("Convert doc to pdf")
             alert("Пук :(")
             // doc.text(renderTemplate(), 10, 10);
