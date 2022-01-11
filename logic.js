@@ -1,19 +1,31 @@
 //todo: грузить из файла
 const templates = {
     "test_template": {
-        "template":"lalal ${checktest} lalal ${inputtest} lala ${combotest}",
+        "template":"lalal ${inputtest} lala ${combotest}",
         "actions":[
             {
                 "key":"inputtest",
-                "label":"imput",
-                "type": "input",
+                "label":"imput", //Название поля
+                "type": "input", //Тип поля
                 "values": []
             },
             {
                 "key":"combotest",
                 "label":"combobox",
                 "type": "combobox",
-                "values": ["value1", "value2", "value3"]
+                "values": [ //значения в списке
+                    {
+                        label: "label1", //отображается в списке
+                        value: "value1" //отображается в шаблоне
+                    },
+                    {
+                        label: "label2",
+                        value: "value2"
+                    }, {
+                        label: "label3",
+                        value: "value3"
+                    },
+                ]
             }
         ]
     }
@@ -25,7 +37,7 @@ const actionEventsByType = {
     "combobox": "click",
 }
 
-const actionsTemplates = { //todo доделать поля ввода
+const actionsTemplates = { 
     "input" : function(key, values){
         const input = document.createElement("input")
         input.id = key
@@ -37,21 +49,13 @@ const actionsTemplates = { //todo доделать поля ввода
 
         for(const v of values){
             const option = document.createElement("option")
-            option.value = v
-            option.innerHTML = v
+            option.value = v.value
+            option.innerHTML = v.label
             select.appendChild(option)
         }
         return select
     },
-    // "<p>${label}</p><select id=\"${key}\"><option value=\"1\">test1</option>" + 
-    //                                     "<option value=\"2\" selected=\"selected\">test2</option>" + 
-    //                                     "<option value=\"3\">test3</option>" + 
-    //                                 "</select>",
-    "checkbox" :       function(key, values) {
-    },
-    // "<p>${label}</p><input type=\"checkbox\" id=\"${key}\">",
-    "test": function(){
-        return 1
+    "checkbox" : function(key, values) {
     }
 }
 
@@ -88,7 +92,6 @@ function getActionObject(action){
 
         div.appendChild(label)
         div.appendChild(actionTemplate(action.key, action.values))
-        console.log(div)
         return div
     } else {
         console.error("Action template for type " + action.type + "is missing")
