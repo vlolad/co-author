@@ -13,7 +13,7 @@ const templates = {
                 "key":"combotest",
                 "label":"combobox",
                 "type": "combobox",
-                "values": ["123", "1434"]
+                "values": ["value1", "value2", "value3"]
             }
         ]
     }
@@ -26,12 +26,33 @@ const actionEventsByType = {
 }
 
 const actionsTemplates = { //todo доделать поля ввода
-    "input" :       "<p>${label}</p><input id=\"${key}\">",
-    "combobox" :    "<p>${label}</p><select id=\"${key}\"><option value=\"1\">test1</option>" + 
-                                        "<option value=\"2\" selected=\"selected\">test2</option>" + 
-                                        "<option value=\"3\">test3</option>" + 
-                                    "</select>",
-    "checkbox" :    "<p>${label}</p><input type=\"checkbox\" id=\"${key}\">"
+    "input" : function(key, values){
+        const input = document.createElement("input")
+        input.id = key
+        return input
+    },
+    "combobox" :    function(key, values) {
+        const select = document.createElement("select")
+        select.id = key
+
+        for(const v of values){
+            const option = document.createElement("option")
+            option.value = v
+            option.innerHTML = v
+            select.appendChild(option)
+        }
+        return select
+    },
+    // "<p>${label}</p><select id=\"${key}\"><option value=\"1\">test1</option>" + 
+    //                                     "<option value=\"2\" selected=\"selected\">test2</option>" + 
+    //                                     "<option value=\"3\">test3</option>" + 
+    //                                 "</select>",
+    "checkbox" :       function(key, values) {
+    },
+    // "<p>${label}</p><input type=\"checkbox\" id=\"${key}\">",
+    "test": function(){
+        return 1
+    }
 }
 
 let templateValue = ""
@@ -57,14 +78,17 @@ function addActions(template) {
 }
 
 function getActionObject(action){
-    let actionTemplate = actionsTemplates[action.type]
+    const actionTemplate = actionsTemplates[action.type]
     if (actionTemplate){
-        actionTemplate = actionTemplate.replaceAll("${label}", action.label)
-        actionTemplate = actionTemplate.replaceAll("${key}", action.key)
-
-        let div = document.createElement('div')
+        const div = document.createElement('div')
         div.className = "action"
-        div.innerHTML = actionTemplate
+
+        const label = document.createElement("p")
+        label.innerHTML = action.label
+
+        div.appendChild(label)
+        div.appendChild(actionTemplate(action.key, action.values))
+        console.log(div)
         return div
     } else {
         console.error("Action template for type " + action.type + "is missing")
