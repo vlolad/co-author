@@ -2,9 +2,9 @@
 // created by poeblo in 2022
 //
 
-import { jsPDF } from "jspdf";
+import { jsPDF } from "./jspdf";
 //git clone https://github.com/parallax/jsPDF
-import { templates } from "templates.js"
+import { templates } from "./templates.js"
 
 //=========================================================================================
 //=========================================================================================
