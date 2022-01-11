@@ -5,7 +5,7 @@ const templates = {
         "template": "lalal ${inputtest} lala ${combotest}",
         "actions":[
             {
-                "key":"inputtest", //должен быть уникальным
+                "key":"inputtest",
                 "label":"label input", //Название поля
                 "type": "input", //Тип поля (input, combobox)
                 "values": []
@@ -35,7 +35,7 @@ const templates = {
         "template": "<h1>Соглашение соавторов на совместную разработку программы для ЭВМ</h1><br><br> <div style=\"float: right\"><b>«${date_n}» ${month} год г.</b></div> <b>г. Москва</b><br><br><br> а",
         "actions":[
             {
-                "key":"date_n", //должен быть уникальным
+                "key":"date_n",
                 "label":"Текущее число", //Название поля
                 "type": "input", //Тип поля (input, combobox)
                 "values": []
