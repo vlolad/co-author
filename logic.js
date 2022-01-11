@@ -1,7 +1,7 @@
 //todo: грузить из файла
 const templates = {
     "test_template": {
-        "label": "TEST DOCUMEN",
+        "label": "TEST DOCUMEN", //отображается в списочной форме дока
         "template": "lalal ${inputtest} lala ${combotest}",
         "actions":[
             {
@@ -44,13 +44,13 @@ const actionEventsByType = {
     "combobox": "click",
 }
 
-const actionsTemplates = { 
+const htmlObjectCreators = { 
     "input" : function(key, values){
         const input = document.createElement("input")
         input.id = key
         return input
     },
-    "combobox" :    function(key, values) {
+    "combobox" : function(key, values) {
         const select = document.createElement("select")
         select.id = key
 
@@ -71,18 +71,69 @@ let templateValue = ""
 let currentValues = {}
 
 document.addEventListener('DOMContentLoaded', function(){ //проверка на загрузку страницы
-    templateValue = templates.test_template.template
-    console.log(templateValue)
-    addActions(templates.test_template)
-    renderTemplate()
+    loadDoctypesPicker()
 })
 
+function loadDoctypesPicker(){
+    const select = document.getElementById("doctype_picker")
+    for(const key of Object.keys(templates)){
+        const option = document.createElement("option")
+        option.value = key
+        option.innerHTML = templates[key].label
+        select.appendChild(option)
+    }
+    select.addEventListener('click', function() {
+        if(select.value){
+            loadTemplate(select.value)
+        } else{
+            closeTemplate()
+        }
+    }) 
+}
+
+function closeTemplate(){
+    templateValue = ""
+    currentValues = {}
+    isPanelsHidden(true)
+    clearActions()
+}
+
+function clearActions() {
+    const actionsHolder = document.getElementById("actions_holder")
+    if(actionsHolder){
+        console.log("Clear actions")
+        actionsHolder.innerHTML = ''
+    }
+}
+
+function loadTemplate(templateName){
+    console.log("Opening template " + templateName)
+
+    templateValue = templates[templateName].template
+    addActions(templates.test_template)
+    renderTemplate()
+
+    console.log("Template loaded")
+
+    isPanelsHidden(false)
+}
+
+function isPanelsHidden(isVisible){
+    const rh = document.getElementsByClassName("right_holder")
+    for(const p of rh){
+        p.hidden = isVisible
+    }
+    const lh = document.getElementsByClassName("left_holder")
+    for(const p of lh){
+        p.hidden = isVisible
+    }}
 
 function addActions(template) {
+    const actionsHolder = document.getElementById("actions_holder")
     for(const action of template.actions){
         const actionObject = getActionObject(action)
         if(actionObject){
-            document.getElementById("actions_holder").append(actionObject)
+            actionsHolder.append(actionObject)
             setActionEventListner(action)
             currentValues[action.key] = ""
         }
@@ -90,7 +141,7 @@ function addActions(template) {
 }
 
 function getActionObject(action){
-    const actionTemplate = actionsTemplates[action.type]
+    const actionTemplate = htmlObjectCreators[action.type]
     if (actionTemplate){
         const div = document.createElement('div')
         div.className = "action"

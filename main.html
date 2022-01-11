@@ -35,10 +35,15 @@
 <body>
 </head>
 <body>
-    <div class="right_holder">
+    <div id = "doctype_picker_holder">
+      <select class = "doctype_picker" id = "doctype_picker">
+        <option value=""></option>
+      </select>
+    </div>
+    <div class="right_holder" hidden = true>
         <p id="template_holder"></p>
     </div>
-    <div class="left_holder">
+    <div class="left_holder" hidden = true>
         <p id="actions_labels">Actions</p>
         <div id="actions_holder"></div>
     </div>
