@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Co-author project</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <center>
+    <div id = "doctype_picker_holder" class = "padding_base" >
+      <select id = "doctype_picker" class = "smoove">
+        <option value=""></option>
+      </select>
+    </div>
+  </center>
+  <button id = "convert">Convert to pdf</button>
+  <div class = "padding_base">
+    <div class="right_holder" hidden = true>
+        <center>
+          <p>Документ</p>
+        </center>
+        <p id="template_holder" class = "padding_base"></p>
+    </div>
+    <div class="left_holder" hidden = true>
+        <center>
+          <p id="actions_labels">Действия</p>
+        </center>
+        <div id="actions_holder"></div>
+    </div>
+  </div>
+</body>
+</script> 
+<script type="module" src="./logic.js" charset="utf-8"></script>
+</html>

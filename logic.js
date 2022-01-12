@@ -1,54 +1,13 @@
-//todo: грузить из файла
-const templates = {
-    "test_template": {
-        "label": "TEST DOCUMEN", //отображается в списочной форме дока
-        "template": "lalal ${inputtest} lala ${combotest}",
-        "actions":[
-            {
-                "key":"inputtest",
-                "label":"label input", //Название поля
-                "type": "input", //Тип поля (input, combobox)
-                "values": []
-            },
-            {
-                "key":"combotest",
-                "label":"combobox",
-                "type": "combobox",
-                "values": [ //значения в списке
-                    {
-                        label: "label1", //отображается в списке
-                        value: "value1" //отображается в шаблоне
-                    },
-                    {
-                        label: "label2",
-                        value: "value2"
-                    }, {
-                        label: "label3",
-                        value: "value3"
-                    },
-                ]
-            }
-        ]
-    },
-    "dogovor_PO": {
-        "label": "Договор на совместную разработку ПО",
-        "template": "<h1>Соглашение соавторов на совместную разработку программы для ЭВМ</h1><br><br> <div style=\"float: right\"><b>«${date_n}» ${month} год г.</b></div> <b>г. Москва</b><br><br><br> а",
-        "actions":[
-            {
-                "key":"date_n",
-                "label":"Текущее число", //Название поля
-                "type": "input", //Тип поля (input, combobox)
-                "values": []
-            },
-            {
-                "key":"month",
-                "label":"Текущая дата",
-                "type": "combobox_old",
-                "values": ["январь", "февраль", "март", "апрель"]
-            }
-        ]
-    }
-}
+//
+// created by poeblo in 2022
+//
+
+// //git https://github.com/parallax/jsPDF
+import { templates } from "./templates.js";
+// import { jsPDF } from "./_site/jsPDF/src/jspdf.js";
+
+
+
 //=========================================================================================
 //=========================================================================================
 //=========================================================================================
@@ -66,30 +25,69 @@ const htmlObjectCreators = {
     "input" : function(key, values){
         const input = document.createElement("input")
         input.id = key
+        input.className = "smoove"
         return input
-        console.log ()
     },
     "combobox" : function(key, values) {
         const select = document.createElement("select")
         select.id = key
+        select.className = "smoove"
+
+        const option = document.createElement("option")
+        option.value = ""
+        option.innerHTML = ""
+        select.appendChild(option)
 
         for(const v of values){
             const option = document.createElement("option")
-            option.value = v.value
             option.innerHTML = v.label
+            if(v.value){
+                option.value = v.value
+            } else {
+                option.value = v.label
+            }
             select.appendChild(option)
         }
         return select
     },
-    "checkbox" : function(key, values) {}    //нужн реализация создания объекта
+    "checkbox" : function(key, values) {
+        const sw = document.createElement("label")
+        sw.className = "switch"
+        sw.style = "vertical-align: 13px;"
+
+        const input = document.createElement("input")
+        input.type = "checkbox"
+        input.id = key
+
+        const sp = document.createElement("span")
+        sp.className = "slider round"
+
+        sw.appendChild(input)
+        sw.appendChild(sp)
+        return sw
+    } 
 }
 
 let templateValue = ""
 let currentValues = {}
+let currentTemplateName = ""
 
 document.addEventListener('DOMContentLoaded', function(){
     loadDoctypesPicker()
+    const convertButton = document.getElementById("convert")
+    if(convertButton){
+        convertButton.addEventListener('click', function() {
+            console.log("Convert doc to pdf")
+            const doc = new jsPDF();
+            doc.text(renderTemplate(), 10, 10);
+            // doc.save(templates[currentTemplateName].label + ".pdf");
+            var base64URL = doc.output('datauri');
+            var win = window.open(base64URL)
+            win.document.write('<iframe src="' + base64URL  + '" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>');
+        })
+    }
 })
+
 
 function loadDoctypesPicker(){
     const select = document.getElementById("doctype_picker")
@@ -103,6 +101,7 @@ function loadDoctypesPicker(){
         closeTemplate()
         if(select.value){
             loadTemplate(select.value)
+            currentTemplateName = select.value
         }
     }) 
 }
@@ -110,6 +109,7 @@ function loadDoctypesPicker(){
 function closeTemplate(){
     templateValue = ""
     currentValues = {}
+    currentTemplateName = ""
     isPanelsHidden(true)
     clearActions()
 }
@@ -159,15 +159,18 @@ function addActions(template) {
 function getActionObject(action){
     const actionTemplate = htmlObjectCreators[action.type]
     if (actionTemplate){
+        const parentdiv = document.createElement("div")
+        parentdiv.className = "padding_base"
         const div = document.createElement('div')
-        div.className = "action"
+        div.className = "action padding_base"
 
         const label = document.createElement("p")
         label.innerHTML = action.label
 
         div.appendChild(label)
         div.appendChild(actionTemplate(action.key, action.values))
-        return div
+        parentdiv.appendChild(div)
+        return parentdiv
     } else {
         console.error("Action template for type " + action.type + "is missing")
     }
@@ -202,6 +205,7 @@ function renderTemplate() {
             newValue = newValue.replaceAll("${" + key + "}", currentValues[key])
         }
         templateHolder.innerHTML = newValue
+        return String(newValue)
     } else {
         console.error("Template holder not found")
     }
