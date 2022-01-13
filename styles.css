@@ -8,7 +8,7 @@
     left: 0;
     top: 1;
     width: 48%;
-    height: 100%;
+    height: auto;
     border: var(--holder-border);
     border-radius: 4px;
 }
@@ -17,13 +17,18 @@
     right: 0;
     top: 1;
     width: 50%;
-    height: 100%;
-    border: var(--holder-border);
+    height: auto;
     border-radius: var(--border-radius);
+    border: var(--holder-border);
     text-align: justify;
+    margin-bottom: 150px;
 }
 .smoove{
     border-radius: 8px;
+    max-width: 100%; 
+    white-space: pre-wrap;
+    text-align: justify;
+/*Список комбобокса был очень длинный и при изменении разрешения заползал на текст справа. Сделал такой костыль. */
 }
 .action{
     border: var(--action-border);
@@ -96,6 +101,8 @@ input:checked + .slider:before {
 }
 option{
     background-color: #d1fdffff;
+    word-break: break-all;
+    text-align: justify;
 }
 body {
     background-color: #d1fdffff;
@@ -105,4 +112,21 @@ h1 {
     font-family: Verdana, Arial, Helvetica, sans-serif; 
     color: #01585c;
     text-align: center  
+} 
+.copyright { 
+
+    margin: auto;
+    
+   /* position:fixed;
+   left:0px;
+   bottom:0px;
+   height:30px;
+   width:100%; */
+
+    /* position: fixed;
+    left: 0; bottom: 0; 
+    padding: 10px; 
+    background: #026368; 
+    color: #fff; 
+    width: auto; */
 } 
