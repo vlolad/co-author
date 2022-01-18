@@ -3,6 +3,23 @@
     --holder-border: 5px solid #01585c;
     --action-border: 2px solid black;
 }
+html, body {
+    height: 100%;
+    margin: 0;
+  } /* нужно добавить чтоб стиль блока растягивался на весь экран */
+  .ban {
+   background-color: #d1fdffff;
+   width: 100%;
+   height: 100%;
+   font-size: 20 px;
+    color: #000000;
+    position: absolute
+  }
+    .hide {
+  top: 60%; /*Делал в JS bin, пока не понял как отображается и засунул 60, если будет совсем уж плохо выглядеть можно поменять*/
+  left:50%;
+  position:  relative
+  }
 .left_holder { 
     position: absolute;
     left: 0;
@@ -115,7 +132,7 @@ h1 {
 } 
 .copyright { 
 
-    margin: auto;
+    right: 0;
     
    /* position:fixed;
    left:0px;
@@ -129,4 +146,4 @@ h1 {
     background: #026368; 
     color: #fff; 
     width: auto; */
-} 
+}

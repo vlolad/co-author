@@ -5,6 +5,18 @@
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
+  <div id=freewall class = "ban" >
+    <input class = "hide" type="button" id="hider" value="Jopa" />
+        <script>
+        // Нажатие на кнопку убирает стену текста и кнопку
+        document.getElementById('hider').onclick = function() {
+        document.getElementById('hider').hidden = true;
+      document.getElementById('freewall').hidden = true;
+        }
+      </script>
+        ТУТ ТЕКСТ ТУТ ТЕКСТ ТУТ ТЕКСТ <br> <br>
+    Мы юристы не по годам поставьте 100 баллов
+  </div>
   <center>
     <div id = "doctype_picker_holder" class = "padding_base" >
       <select id = "doctype_picker" class = "smoove">
