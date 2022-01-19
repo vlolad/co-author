@@ -29,9 +29,10 @@ html, body {
     left: 0;
     top: 1;
     width: 48%;
-    height: auto;
+    height: 100hv;
     border: var(--holder-border);
     border-radius: 4px;
+    overflow-y: scroll;
 }
 .right_holder { 
     position: absolute;
@@ -39,11 +40,12 @@ html, body {
     right: 0;
     top: 1;
     width: 50%;
-    height: auto;
+    height: 100hv;
     border-radius: var(--border-radius);
     border: var(--holder-border);
     text-align: justify;
     margin-bottom: 150px;
+    overflow-y: scroll;
 }
 .smoove{
     border-radius: 8px;
