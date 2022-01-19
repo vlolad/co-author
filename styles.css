@@ -5,23 +5,27 @@
 }
 html, body {
     height: 100%;
-    margin: 0;
+    margin: 5;
   } /* нужно добавить чтоб стиль блока растягивался на весь экран */
   .ban {
    background-color: #d1fdffff;
    width: 100%;
-   height: 100%;
+   height: 80%;
+   left: 100;
+   right: 100;
    font-size: 20 px;
-    color: #000000;
-    position: absolute
+   color: #000000;
+   position: absolute
+    
   }
     .hide {
   top: 60%; /*Делал в JS bin, пока не понял как отображается и засунул 60, если будет совсем уж плохо выглядеть можно поменять*/
   left:50%;
   position:  relative
-  }
+  } /* Этот стиль вообще не задействован, но раньше использовался в кнопке во freewall */
 .left_holder { 
     position: absolute;
+    overflow: auto;
     left: 0;
     top: 1;
     width: 48%;
@@ -31,6 +35,7 @@ html, body {
 }
 .right_holder { 
     position: absolute;
+    overflow: scroll;
     right: 0;
     top: 1;
     width: 50%;
@@ -131,16 +136,17 @@ h1 {
     text-align: center  
 } 
 .copyright { 
-
-    right: 0;
-    
-   /* position:fixed;
-   left:0px;
+   
+   position:fixed;
+   left:5px;
    bottom:0px;
    height:30px;
-   width:100%; */
+   background: #026368; 
+    color: #fff;
+    text-align: center;
+   width:auto;
 
-    /* position: fixed;
+    /*position: fixed;
     left: 0; bottom: 0; 
     padding: 10px; 
     background: #026368; 

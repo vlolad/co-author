@@ -1,22 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html style="font-family: PTSans;">
 <head>
   <title>Co-author project</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
+  <meta charset="utf-8">
 </head>
 <body>
-  <div id=freewall class = "ban" >
-    <input class = "hide" type="button" id="hider" value="Jopa" />
-        <script>
-        // Нажатие на кнопку убирает стену текста и кнопку
-        document.getElementById('hider').onclick = function() {
-        document.getElementById('hider').hidden = true;
-      document.getElementById('freewall').hidden = true;
-        }
-      </script>
-        ТУТ ТЕКСТ ТУТ ТЕКСТ ТУТ ТЕКСТ <br> <br>
-    Мы юристы не по годам поставьте 100 баллов
-  </div>
+    <div id=freewall class = "ban" >
+      <p align=center>Вас приветствует сайт <b>Co-author</b> !</p><br>                                                                                   
+      <p align=center style="padding: 10px">Если вы и ваш коллега/коллеги хотите объединить свои навыки, знания и умения для создания произведения (программного обеспечения, статьи для журнала, музыки, дизайна картинки и т.д.), то вы – будущие соавторы. <br> 
+      Co-author – конструктор соглашений, разработанный специально для соавторов с целью минимизации наиболее распространенных правовых рисков, возникающих при создании произведений.</p> <br> 
+      <p style="padding-left: 15px">Co-author предоставляет возможность: <br> 
+      ●	Заранее договориться, как вы будете распоряжаться созданным объектом (то есть правом на изменение произведения, его продажу или передачу другим лицам, совершение других действий в отношении созданного объекта);<br> 
+      ●	Заранее установить, какую часть работы должен выполнить каждый из соавторов;<br> 
+      ●	Определить денежную сумму, подлежащую выплате по итогам создания произведения каждому из соавторов в зависимости от вклада каждого в создание объекта.<br></p>
+      <p style="padding-left: 15px"><b>Начиная использовать сайт, вы подтверждаете, что:</b><br>
+      1. Достигли возраста 14 лет;<br>
+      2. Не рассматриваете настоящий конструктор как замену профессиональной юридической консультации, и, в случае возникновения вопросов, обратитесь к юристам или к авторам сайта;<br>
+      3. Несёте всю ответственность за подписанные вами договоры и соглашения.</p>
+      <center><input type="button" id="hider" value="Понимаю и принимаю все условия"/></center>
+      <p style="font-size: 80%; position:absolute; bottom:0px;">На сайте используется библиотека библиотека «jsPDF» (https://github.com/parallax/jsPDF).<br> Все права на её функционал принадлежат авторам библиотеки.</p>
+    </div>
   <center>
     <div id = "doctype_picker_holder" class = "padding_base" >
       <select id = "doctype_picker" class = "smoove">
@@ -39,7 +43,7 @@
         <div id="actions_holder"></div>
     </div>
   </div>
-  <div class="copyright">   </div>
+  <div class="copyright">© 2021-2022 Co-author team. All rights reserved.</div>
 </body>
 </script> 
 <script type="module" src="./logic.js" charset="utf-8"></script>

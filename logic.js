@@ -2,10 +2,9 @@
 // created by poeblo in 2022
 //
 
-// //git https://github.com/parallax/jsPDF
+//git https://github.com/parallax/jsPDF
 import { templates } from "./templates.js";
-// import { jsPDF } from "./_site/jsPDF/src/jspdf.js";
-
+import { jsPDF } from "./_site/jsPDF/src/jspdf.js";
 
 
 //=========================================================================================
@@ -79,8 +78,9 @@ document.addEventListener('DOMContentLoaded', function(){
         convertButton.addEventListener('click', function() {
             console.log("Convert doc to pdf")
             const doc = new jsPDF();
+            console.log(doc.getFontList() + "yes");
             doc.text(renderTemplate(), 10, 10);
-            // doc.save(templates[currentTemplateName].label + ".pdf");
+            doc.save(templates[currentTemplateName].label + ".pdf");
             var base64URL = doc.output('datauri');
             var win = window.open(base64URL)
             win.document.write('<iframe src="' + base64URL  + '" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>');
@@ -210,3 +210,8 @@ function renderTemplate() {
         console.error("Template holder not found")
     }
 }
+
+document.getElementById('hider').onclick = function() {
+    document.getElementById('hider').hidden = true;
+  document.getElementById('freewall').hidden = true;
+    }
