@@ -4,7 +4,7 @@
 
 //git https://github.com/parallax/jsPDF
 import { templates } from "./templates.js";
-import { jsPDF } from "./_site/jsPDF/src/jspdf.js";
+//import { jsPDF } from "./_site/jsPDF/src/jspdf.js";
 
 
 //=========================================================================================
