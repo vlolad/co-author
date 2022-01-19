@@ -28,7 +28,7 @@ html, body {
     height: auto;
     border: var(--holder-border);
     border-radius: 4px;
-    overflow-y: scroll
+    overflow-y: auto
 }
 .right_holder { 
     position: absolute;
@@ -40,7 +40,7 @@ html, body {
     border: var(--holder-border);
     text-align: justify;
     margin-bottom: 150px;
-    overflow-y: scroll
+    overflow-y: auto
 }
 .smoove{
     border-radius: 8px;
